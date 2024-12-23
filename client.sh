@@ -1,5 +1,6 @@
-echo "Best guess is:"
-head -n 1 words_ordered_by_path_sum.txt | cut -f 1
+#!/usr/bin/bash
+
+figlet "wordle-helper" 
 
 members=()
 nonmembers=()
@@ -58,9 +59,11 @@ while true; do
     done
     
     
-    echo "Member characters:"
-    echo "${members[@]}"
-    echo ""
+    if [[ ${#members[@]} -gt 0 ]]; then
+        echo "Member characters:"
+        echo "${members[@]}"
+        echo ""
+    fi
     
     echo "Enter characters known to NOT be in the word"
     echo ""
@@ -85,9 +88,11 @@ while true; do
     done
     
     
-    echo "Non-member characters:"
-    echo "${nonmembers[@]}"
-    echo ""
+    if [[ ${#nonmembers[@]} -gt 0 ]]; then
+        echo "Non-member characters:"
+        echo "${nonmembers[@]}"
+        echo ""
+    fi
     
     
     # Build the chained grep command dynamically
@@ -121,6 +126,7 @@ while true; do
     echo $command
 
     # Execute the command
+    echo ""
     echo "Next best guesses are:"
     eval $command
     echo ""
