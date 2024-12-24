@@ -1,6 +1,11 @@
 #!/usr/bin/bash
 
-figlet "wordle-helper" 
+if command -v figlet &> /dev/null; then
+    echo "Welcome to"
+    figlet "wordle-helper" 
+else
+    echo "Welcome to wordle-helper"
+fi
 
 members=()
 nonmembers=()
