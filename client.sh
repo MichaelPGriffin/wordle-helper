@@ -15,13 +15,13 @@ while true; do
     echo "Use '*' for unknown letters"
     echo ""
 
-
     while true; do
         read input
         if [ ${#input} -ne 5 ]; then
             echo "The string must have length of 5 characters."
             continue
         fi
+        echo ""
         echo "You entered: \"$input\""
         echo ""
         break
@@ -53,11 +53,11 @@ while true; do
     		echo ""
     		break;;
     	    [a-z])
-                    echo ""
-                    members+=($char)
+                echo ""
+                members+=($char)
     		;;
-                *)
-                    echo "Input must be a single character, or 'next'"
+            *)
+                echo "Input must be a single character, or 'next'"
     		echo ""
     		;;
         esac
@@ -74,6 +74,7 @@ while true; do
     echo ""
     while true; do
         echo "Add a character. Type 'next' to continue."
+        echo ""
         read input
         char="${input,,}"
         case $char in
@@ -81,13 +82,12 @@ while true; do
     		echo ""
     		break;;
     	    [a-z])
-                    echo "Character is: $char"
-    		echo ""
-                    nonmembers+=($char)
+                echo ""
+                nonmembers+=($char)
     		;;
-                *)
-                    echo "Input must be a single character, or 'next'"
-    		echo ""
+            *)
+                echo "Input must be a single letter or 'next'"
+                echo ""
     		;;
         esac
     done
@@ -115,13 +115,14 @@ while true; do
     fi
     
     if [[ ${#members[@]} -gt 0 ]]; then
-        # Create pattern from array
-        pattern="[${members[*]}]"
-    
-        # Remove spaces
-        pattern="${pattern// /}"
-    
-        command+=" | grep '$pattern'"
+	pattern="^"
+
+        for member in "${members[@]}"; do
+            pattern+="(?=.*$member)"
+	done
+
+	pattern+=".*"
+        command+=" | grep -P '$pattern'"
  
     fi
     
@@ -131,6 +132,8 @@ while true; do
     echo $command
 
     # Execute the command
+    echo ""
+    echo "Running command..."
     echo ""
     echo "Next best guesses are:"
     eval $command
