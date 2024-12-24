@@ -135,7 +135,7 @@ while true; do
     echo ""
     echo "Running command..."
     echo ""
-    echo "Next best guesses are:"
+    echo "Next best guess(es):"
     eval $command
     echo ""
 
