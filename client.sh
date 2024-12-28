@@ -101,7 +101,7 @@ while true; do
     
     
     # Build the chained grep command dynamically
-    input_file="words_ordered_by_path_sum.txt"
+    input_file="words.txt"
     command="grep '$base_regex' $input_file"
     
     if [[ ${#nonmembers[@]} -gt 0 ]]; then
