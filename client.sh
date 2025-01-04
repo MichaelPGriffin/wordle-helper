@@ -136,7 +136,13 @@ while true; do
     echo "Running command..."
     echo ""
     echo "Next best guess(es):"
-    eval $command
+    word_count=(eval $command)
+
+    if [[ $word_count -eq 0 ]]; then
+        echo "No words are available. Try again or open an issue to report a missing word."
+	exit 0
+    fi
+
     echo ""
 
 done
