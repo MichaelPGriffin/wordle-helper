@@ -135,13 +135,17 @@ while true; do
     echo ""
     echo "Running command..."
     echo ""
-    echo "Next best guess(es):"
-    word_count=(eval $command)
 
-    if [[ $word_count -eq 0 ]]; then
-        echo "No words are available. Try again or open an issue to report a missing word."
-	exit 0
+    word_count=$(eval $command | wc -l)
+
+    if [[ $word_count -lt 1 ]]; then
+	echo "No matching words found. Try again, or open a GitHub issue to suggest a new word."
+	echo ""
+        exit 1
     fi
+
+    echo "Next best guess(es):"
+    eval $command
 
     echo ""
 
